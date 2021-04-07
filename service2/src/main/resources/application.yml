@@ -1,0 +1,39 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /
+  http2:
+    enabled: true
+    
+spring: 
+  application:
+    name: service2
+  #rabbit配置
+  rabbitmq:
+    host: 47.96.36.207
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /micro_service
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual  #手动确认消息接收
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.96.36.207:3306/message?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+mybatis:
+  mapper-locations: classpath:mapper/*.xml, classpath:mapper/*/*.xml
+  type-aliases-package: com.micro.service.service2.entity
